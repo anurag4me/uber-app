@@ -1,8 +1,9 @@
 const userModel = require("../models/user.models");
-const userService = require("../services/user.service");
+const blackListTokenModel = require("../models/blacklistToken.model");
+const { createUser } = require("../services/user.service");
 const { validationResult } = require("express-validator");
 
-module.exports.registerUser = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -12,7 +13,7 @@ module.exports.registerUser = async (req, res, next) => {
 
   const hashedPassword = await userModel.hashPassword(password);
 
-  const user = await userService.createUser({
+  const user = await createUser({
     firstName: fullname.firstName,
     lastName: fullname.lastName,
     email,
@@ -24,27 +25,44 @@ module.exports.registerUser = async (req, res, next) => {
   res.status(201).json({ token, user });
 };
 
-module.exports.loginUser = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
-    const { email, password } = req.body;
 
-    const user = await userModel.findOne({email}).select("+password")
+  const { email, password } = req.body;
 
-    if(!user) {
-        return res.status(401).json({message: "Invalid email or password"})
-    }
+  const user = await userModel.findOne({ email }).select("+password");
 
-    const isMatch = await user.comparePassword(password)
+  if (!user) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
 
-    if(!isMatch) {
-        return res.status(401).json({message: "Invalid email or password"})
-    }
+  const isMatch = await user.comparePassword(password);
 
-    const token = user.generateAuthToken()
+  if (!isMatch) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
 
-    res.status(200).json({token, user})
-}
+  const token = user.generateAuthToken();
+
+  res.cookie("token", token);
+
+  res.status(200).json({ token, user });
+};
+
+const getUserProfile = async (req, res, next) => {
+  res.status(200).json(req.user);
+};
+
+const logoutUser = async (req, res, next) => {
+  res.clearCookie("token");
+  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+
+  await blackListTokenModel.create({ token });
+
+  res.status(200).json({ message: "Logout successful" });
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, logoutUser };

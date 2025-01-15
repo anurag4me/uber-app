@@ -1,6 +1,6 @@
 const userModel = require("../models/user.models");
 
-module.exports.createUser = async ({
+const createUser = async ({
   firstName,
   lastName,
   email,
@@ -20,3 +20,5 @@ module.exports.createUser = async ({
 
   return user;
 };
+
+module.exports = { createUser };

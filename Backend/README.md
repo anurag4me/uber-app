@@ -1,5 +1,6 @@
 # Backend API Documentation
 
+
 ## `/users/register` Endpoint
 
 ### Description
@@ -18,7 +19,7 @@ The request body should be a JSON object with the following fields:
 
 ### Example Response
 
-````json
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3NDMwZjg0NjYxNmEwNWNhMzJjZmYiLCJpYXQiOjE3MzY5MTc3NzV9.1zLdv9A9u-9XgAiHQl-Pq_TK26Sj1LB8A37kVoeYStw",
   "user": {
@@ -32,6 +33,8 @@ The request body should be a JSON object with the following fields:
   "__v": 0
   }
 }
+```
+
 
 ## `/users/login` Endpoint
 
@@ -49,5 +52,46 @@ The request body should be a JSON object with the following fields:
 {
   "email": "john.doe@example.com",
   "password": "password123",
+}
+```
+
+
+## `/users/profile` Endpoint
+
+### Description
+This endpoint is used to get the profile of the authenticated user.
+
+### Request Headers
+The request should include the following header:
+
+- `Authorization` Bearer <token>
+
+### Example Response
+```json
+{
+  "_id": "user_id_here",
+  "fullname": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "john.doe@example.com"
+}
+```
+
+
+## `/users/logout` Endpoint
+
+### Description
+This endpoint is used to log out the authenticated user. It clears the authentication token from cookies and adds it to a blacklist.
+
+### Request Headers
+The request should include the following header:
+
+- `Authorization` Bearer <token>
+
+### Example Response
+```json
+{
+  "message": "Logout successful"
 }
 ````
