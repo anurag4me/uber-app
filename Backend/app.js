@@ -3,6 +3,7 @@ const connectMongoDb = require("./connection");
 const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./routes/user.routes");
+const captainRoutes = require("./routes/captain.routes");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -25,5 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRoutes);
+
+app.use("/captains", captainRoutes);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

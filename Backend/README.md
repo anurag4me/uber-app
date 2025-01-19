@@ -94,4 +94,47 @@ The request should include the following header:
 {
   "message": "Logout successful"
 }
-````
+```
+
+## `/captains/register` Endpoint
+
+### Description
+This endpoint is used to register a new captain. It validates the input data, hashes the captain's password, creates a new captain in the database, and returns the captain data.
+
+### Request Body
+The request body should be a JSON object with the following fields:
+
+- `fullname`: An object containing:
+  - `firstName` (string, required, minimum length: 3)
+  - `lastName` (string, required, minimum length: 3)
+- `email` (string, required, must be a valid email)
+- `password` (string, required, minimum length: 6)
+- `vehicle`: An object containing:
+  - `vehicleType` (string, required, must be one of ["car", "auto", "motorcycle"])
+  - `color` (string, required, minimum length: 3)
+  - `plate` (string, required, minimum length: 3)
+  - `capacity` (integer, required, minimum value: 1)
+
+### Example Response
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjYzc2MTE2MGM2ZWE0ZmIwMTY5NjAiLCJpYXQiOjE3MzcyNzkzMjksImV4cCI6MTczNzM2NTcyOX0.gOW6OwehBFeILjXLf_4YC7tEO-Ub51EPNJ9qgTPyGf4",
+  "captain": {
+    "fullname": {
+      "firstName": "test_captain_firstname",
+      "lastName": "test_captain_lastname"
+    },
+    "email": "test_email@gmail.com",
+    "password": "$2b$10$gmfeWmdAOC7E3fUfTOXs9OIrBqXEwJXxL0DUOdx0eVMsLz8.rqQIO",
+    "status": "inactive",
+    "vehicle": {
+      "color": "red",
+      "plate": "MPRK 3434",
+      "capacity": 3,
+      "vehicleType": "car"
+    },
+    "_id": "678cc761160c6ea4fb016960",
+    "__v": 0
+  }
+}
+```
