@@ -138,3 +138,89 @@ The request body should be a JSON object with the following fields:
   }
 }
 ```
+
+## `/captains/login` Endpoint
+
+### Description
+This endpoint is used to log in an existing captain. It validates the input data, checks the captain's credentials, and returns a JSON Web Token (JWT) along with the captain data.
+
+### Request Body
+The request body should be a JSON object with the following fields:
+
+- `email` string, required, must be a valid email
+- `password` string, required, minimum length: 6
+
+```json
+{
+  "email": "jane.doe@example.com", 
+  "password": "password123" 
+}
+```
+
+### Example Response
+```json
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstName": "Jane",
+      "lastName": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "vehicleType": "car",
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4
+    }
+  }
+}
+```
+
+## `/captains/profile` Endpoint
+
+### Description
+This endpoint is used to get the profile of the authenticated captain.
+
+### Request Body
+The request should include the following header:
+
+- `Authorization` Bearer <token>
+
+### Example Response
+```json
+{
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstName": "Jane",
+      "lastName": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "vehicleType": "car",
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4
+    }
+  }
+}
+```
+
+## `/captains/logout` Endpoint
+
+### Description
+This endpoint is used to log out the authenticated captain. It clears the authentication token from cookies and adds it to a blacklist.
+
+### Request Body
+The request should include the following header:
+
+- `Authorization` Bearer <token>
+
+### Example Response
+```json
+{
+  "message":"Logged out successfully"
+}
+```

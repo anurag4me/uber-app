@@ -1,4 +1,4 @@
-const userModel = require("../models/user.models");
+const userModel = require("../models/user.model");
 const blackListTokenModel = require("../models/blacklistToken.model");
 const { createUser } = require("../services/user.service");
 const { validationResult } = require("express-validator");
