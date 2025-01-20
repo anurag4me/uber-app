@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext"
+import { useUser } from "../context/UserContext"
 import axios from "axios";
 
 const UserLogin = () => {
@@ -10,7 +10,7 @@ const UserLogin = () => {
 
     const navigate = useNavigate();
 
-    const { setUser } = useContext(UserContext);
+    const { setUser } = useUser();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

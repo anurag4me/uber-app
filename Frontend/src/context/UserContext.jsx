@@ -1,8 +1,16 @@
 import React, { useState, createContext } from "react";
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
-const UserContextProvider = ({ children }) => {
+export const useUser = () => {
+  const context = React.useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
+};
+
+const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     fullName: {
       firstName: "",
@@ -19,4 +27,4 @@ const UserContextProvider = ({ children }) => {
   );
 };
 
-export default UserContextProvider;
+export default UserProvider;

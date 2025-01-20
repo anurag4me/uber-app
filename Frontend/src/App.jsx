@@ -6,13 +6,10 @@ import UserSignup from "./pages/UserSignup";
 import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignup";
 import Home from "./pages/Home";
-import { UserContext } from "./context/UserContext";
 import UserProtectWrapper from "./pages/UserProtectWrapper";
 import UserLogout from "./pages/UserLogout";
 
 const App = () => {
-  const user = useContext(UserContext);
-  // console.log(user);
   return (
     <div>
       <Routes>

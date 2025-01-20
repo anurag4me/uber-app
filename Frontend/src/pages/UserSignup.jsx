@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +11,7 @@ const UserSignup = () => {
 
   const navigate = useNavigate();
 
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
