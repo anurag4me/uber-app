@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ConfirmRide = ({setConfirmRidePanel, setVehicleFound}) => {
+const ConfirmRide = (props) => {
   return (
     <>
-        <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>setConfirmRidePanel(false)}><i className="ri-arrow-down-wide-line"></i></h5>
+        <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>props.setConfirmRidePanel(false)}><i className="ri-arrow-down-wide-line"></i></h5>
         <h3 className="text-2xl font-semibold mb-5">Confirm Your Ride</h3>
         <div className='flex justify-between flex-col items-center gap-2'>
             <img className='h-20' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
@@ -12,20 +12,20 @@ const ConfirmRide = ({setConfirmRidePanel, setVehicleFound}) => {
                     <i className='ri-map-pin-user-fill'></i>
                     <div>
                         <h3 className='text-lg font-medium'>562/11-A</h3>
-                        <p className='text-sm text-gray-600 -mt-1'>Kankariya Talab, Ahmedabad</p>
+                        <p className='text-sm text-gray-600 -mt-1'>{props.pickup}</p>
                     </div>
                 </div>
                 <div className='text-lg flex items-center gap-5 p-3 border-b-2'>
                     <i className='ri-map-pin-2-fill'></i>
                     <div>
                         <h3 className='text-lg font-medium'>562/11-A</h3>
-                        <p className='text-sm text-gray-600 -mt-1'>Kankariya Talab, Ahmedabad</p>
+                        <p className='text-sm text-gray-600 -mt-1'>{props.destination}</p>
                     </div>
                 </div>
                 <div className='text-lg flex items-center gap-5 p-3'>
                     <i className='ri-currency-line'></i>
                     <div>
-                        <h3 className='text-lg font-medium'>₹193.20</h3>
+                        <h3 className='text-lg font-medium'>₹{props.fare[props.vehicleType]}</h3>
                         <p className='text-sm text-gray-600 -mt-1'>Cash Cash</p>
                     </div>
                 </div>
@@ -33,8 +33,9 @@ const ConfirmRide = ({setConfirmRidePanel, setVehicleFound}) => {
             <button 
                 className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg' 
                 onClick={()=>{
-                    setVehicleFound(true)
-                    setConfirmRidePanel(false)
+                    props.setVehicleFound(true)
+                    props.setConfirmRidePanel(false)
+                    props.createRide();
                 }
             }>Confirm</button>
         </div>

@@ -1,33 +1,46 @@
-import React from "react";
-
-const LocationSearchPanel = ({ setPanelOpen, setVehiclePanelOpen }) => {
-  // Sample array of locations
-  const locations = [
-    "C.K. pithawala college of engineering and technology",
-    "Near Surat Railway Station, Rajahansh complex, Surat ",
-    "Sachin GIDC Police Station BRTS Bus Stop 392345",
-    "ONGC Colony Bus Stop, Surat - Hazira Road",
-  ];
+const LocationSearchPanel = ({
+  setPanelOpen,
+  setVehiclePanelOpen,
+  suggestions,
+  loading,
+  error,
+  onSuggestionSelect,
+}) => {
   return (
-    <div>
-      {/* this is just a sample data */}
-      {locations.map((location, index) => {
-        return (
+    <div className="p-4">
+      {loading && (
+        <div className="text-center py-4">Loading suggestions...</div>
+      )}
+
+      {error && <div className="text-center py-4 text-red-500">{error}</div>}
+
+      {!loading && !error && suggestions.length === 0 && (
+        <div className="text-center py-4">
+          Type at least 3 characters to search
+        </div>
+      )}
+
+      {!loading &&
+        !error &&
+        suggestions.map((suggestion, index) => (
           <div
-            className="flex gap-4 border-2 active:border-black p-3 rounded-xl my-2 items-center justify-start"
-            onClick={() => {
-              setVehiclePanelOpen(true);
-              setPanelOpen(false);
-            }}
-            key={index}
+            key={suggestion.place_id}
+            className="flex gap-4 border-2 active:border-black p-3 rounded-xl my-2 items-center justify-start cursor-pointer hover:bg-gray-50"
+            onClick={() => onSuggestionSelect(suggestion)}
           >
             <h2 className="bg-[#eeeeee] h-8 flex items-center justify-center w-12 rounded-full">
               <i className="ri-map-pin-fill"></i>
             </h2>
-            <h4 className="font-medium">{location}</h4>
+            <div>
+              <h4 className="font-medium">
+                {suggestion.structured_formatting.main_text}
+              </h4>
+              <p className="text-sm text-gray-500">
+                {suggestion.structured_formatting.secondary_text}
+              </p>
+            </div>
           </div>
-        );
-      })}
+        ))}
     </div>
   );
 };
