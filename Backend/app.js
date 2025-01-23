@@ -2,13 +2,16 @@ require("dotenv").config();
 const connectMongoDb = require("./connection");
 const express = require("express");
 const cors = require("cors");
+const http = require('http');
 const userRoutes = require("./routes/user.routes");
 const captainRoutes = require("./routes/captain.routes");
 const mapsRoutes = require("./routes/map.routes")
 const rideRoutes = require("./routes/ride.routes")
+const { initializeSocket } = require("./socket")
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 
 // mongodb connection
@@ -35,4 +38,6 @@ app.use("/maps", mapsRoutes)
 
 app.use("/rides", rideRoutes)
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+initializeSocket(server);
+
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

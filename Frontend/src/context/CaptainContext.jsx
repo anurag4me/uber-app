@@ -12,7 +12,7 @@ export const useCaptain = () => {
 
 const CaptainProvider = ({ children }) => {
   const [captain, setCaptain] = useState({
-    fullName: {
+    fullname: {
       firstName: "",
       lastName: "",
     },
