@@ -1,5 +1,5 @@
-const userModel = require("../models/user.model");
-const captainModel = require("../models/captain.model");
+const UserModel = require("../models/user.model");
+const CaptainModel = require("../models/captain.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const blackListTokenModel = require("../models/blacklistToken.model");
@@ -18,7 +18,7 @@ const authUser = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findById(decoded._id);
+    const user = await UserModel.findById(decoded._id);
     if (!user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -46,7 +46,7 @@ const authCaptain = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const captain = await captainModel.findById(decoded._id);
+    const captain = await CaptainModel.findById(decoded._id);
     if (!captain) {
       return res.status(401).json({ message: "Unauthorized" });
     }

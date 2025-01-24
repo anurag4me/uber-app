@@ -1,4 +1,4 @@
-const captainModel = require("../models/captain.model");
+const CaptainModel = require("../models/captain.model");
 const { createCaptain } = require("../services/captain.service");
 const { validationResult } = require("express-validator");
 const blackListTokenModel = require("../models/blacklistToken.model");
@@ -11,13 +11,13 @@ const registerCaptain = async (req, res, next) => {
 
   const { fullname, email, password, vehicle } = req.body;
 
-  const isCaptainAlreadyExists = await captainModel.findOne({ email });
+  const isCaptainAlreadyExists = await CaptainModel.findOne({ email });
 
   if (isCaptainAlreadyExists) {
     return res.status(400).json({ message: "Captain already exists" });
   }
 
-  const hashedPassword = await captainModel.hashPassword(password);
+  const hashedPassword = await CaptainModel.hashPassword(password);
 
   const captain = await createCaptain({
     firstName: fullname.firstName,
@@ -43,7 +43,7 @@ const loginCaptain = async (req, res, next) => {
 
   const { email, password } = req.body;
 
-  const captain = await captainModel.findOne({ email }).select("+password");
+  const captain = await CaptainModel.findOne({ email }).select("+password");
 
   if (!captain) {
     return res.status(400).json({ message: "Invalid email or password" });

@@ -1,17 +1,15 @@
 import React, { useRef, useState } from 'react'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import FinishRide from '../components/FinishRide';
 
 const CaptainRiding = () => {
-        // State hooks 
         const [finishRidePanel, setFinishRidePanel] = useState(false)
-    
-        // Refs for panels 
         const finishRidePanelRef = useRef(null)
-    
-        // GSAP animations for panel transitions
+        const location = useLocation()
+        const rideData = location.state?.ride
+        
         useGSAP(() => {
             if (finishRidePanel) {
             gsap.to(finishRidePanelRef.current, {
@@ -47,7 +45,7 @@ const CaptainRiding = () => {
         </div>   
         {/* Ride PopUp Panel */}
         <div ref={finishRidePanelRef} className="fixed w-full z-10 bottom-0 bg-white px-3 py-8 pt-12 translate-y-full">
-          <FinishRide setFinishRidePanel={setFinishRidePanel}/>
+          <FinishRide ride={rideData} setFinishRidePanel={setFinishRidePanel}/>
         </div>
     </div>
   )

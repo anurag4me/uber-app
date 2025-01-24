@@ -1,7 +1,7 @@
 const express = require('express')
 const { body, query } = require('express-validator')
-const { createRide, getFare } = require('../controllers/ride.controller')
-const { authUser } = require('../middlewares/auth.middleware')
+const { createRide, getFare, confirmRide, startRide, endRide } = require('../controllers/ride.controller')
+const { authUser, authCaptain } = require('../middlewares/auth.middleware')
 const router = express.Router()
 
 router.post('/create',
@@ -17,6 +17,25 @@ router.get('/get-fare',
     query('pickup').isString().isLength({min:3}).withMessage('Invalid pickup address'),
     query('destination').isString().isLength({min:3}).withMessage('Invalid destination address'),
     getFare
+)
+
+router.post('/confirm',
+    authCaptain,
+    body('rideId').isMongoId().withMessage('Invalid ride id'),
+    confirmRide
+)
+
+router.get('/start-ride',
+    authCaptain,
+    query('rideId').isMongoId().withMessage('Invalid ride id'),
+    query('otp').isString().isLength({ min: 6, max: 6}).withMessage('Invalid otp'),
+    startRide
+)
+
+router.post('/end-ride',
+    authCaptain,
+    body('rideId').isMongoId().withMessage('Invalid ride id'),
+    endRide
 )
 
 module.exports = router

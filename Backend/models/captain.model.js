@@ -54,13 +54,13 @@ const captainSchema = new mongoose.Schema({
       enum: ["car", "auto", "motorcycle"],
       required: true,
     },
-    location: {
-      lat: {
-        type: Number,
-      },
-      lng: {
-        type: Number,
-      },
+  },
+  location: {
+    ltd: {
+      type: Number,
+    },
+    lng: {
+      type: Number,
     },
   },
 });
@@ -80,6 +80,6 @@ captainSchema.statics.hashPassword = function (password) {
   return bcrypt.hash(password, 10);
 };
 
-const captainModel = mongoose.model("captain", captainSchema);
+const CaptainModel = mongoose.model("captain", captainSchema);
 
-module.exports = captainModel;
+module.exports = CaptainModel;

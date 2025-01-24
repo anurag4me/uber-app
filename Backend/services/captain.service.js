@@ -1,4 +1,4 @@
-const captainModel = require("../models/captain.model");
+const CaptainModel = require("../models/captain.model");
 
 const createCaptain = async ({
   firstName,
@@ -23,7 +23,7 @@ const createCaptain = async ({
     throw new Error("All fields are required");
   }
 
-  const captain = await captainModel.create({
+  const captain = await CaptainModel.create({
     fullname: {
       firstName,
       lastName,

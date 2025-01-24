@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import axios from "axios";
 import { useGSAP } from "@gsap/react";
@@ -7,8 +7,12 @@ import VehiclePanel from "../components/VehiclePanel";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
+import { useSocket } from "../context/SocketContext";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   // State hooks
   const [destination, setDestination] = useState("");
   const [pickup, setPickup] = useState("");
@@ -32,6 +36,26 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
+  const [ride, setRide] = useState(null);
+
+  const { user } = useUser();
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket.emit("join", { userId: user._id, userType: "user"});
+  }, [user]);
+
+  socket.on("ride-confirmed", (ride) => {
+    setVehicleFound(false);
+    setWaitingForDriver(true);
+    setRide(ride);
+  });
+
+  socket.on("ride-started", (ride) => {
+    console.log(ride)
+    setWaitingForDriver(false);
+    navigate("/riding", { state: { ride }});
+  });
 
   const debouncedFetch = useCallback(
     debounce(async (input) => {
@@ -316,7 +340,12 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-6 pt-12 translate-y-full"
       >
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitingForDriver
+          ride={ride}
+          setVehicleFound={setVehicleFound}
+          setWaitingForDriver={setWaitingForDriver}
+          waitingForDriver={waitingForDriver}
+        />
       </div>
     </div>
   );
