@@ -10,6 +10,7 @@ import WaitingForDriver from "../components/WaitingForDriver";
 import { useSocket } from "../context/SocketContext";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -105,8 +106,16 @@ const Home = () => {
   const handleSuggestionSelect = (suggestion) => {
     if (activeInput === "pickup") {
       setPickup(suggestion.structured_formatting.main_text);
+      if(!document.getElementById("destination").value) {
+        document.getElementById("destination").select()
+        setActiveInput("destination")
+      }
     } else {
       setDestination(suggestion.structured_formatting.main_text);
+      if(!document.getElementById("pickup").value) {
+        document.getElementById("pickup").select()
+        setActiveInput("pickup")
+      }
     }
     // setPanelOpen(false);
     // setVehiclePanel(true);
@@ -228,11 +237,7 @@ const Home = () => {
 
       {/* Main Background Image */}
       <div className="h-screen w-screen" onClick={() => setVehiclePanel(false)}>
-        <img
-          className="h-full w-full object-cover"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt="Background"
-        />
+        <LiveTracking />
       </div>
 
       {/* Panels and Form */}
@@ -252,6 +257,7 @@ const Home = () => {
             <input
               className="bg-[#eeeeee] px-12 py-2 text-lg rounded-lg w-full mt-3"
               type="text"
+              id="pickup"
               value={pickup}
               onChange={(e) => handleInputChange(e, "pickup")}
               onClick={() => {
@@ -263,6 +269,7 @@ const Home = () => {
             <input
               className="bg-[#eeeeee] px-12 py-2 text-lg rounded-lg w-full mt-5"
               type="text"
+              id="destination"
               value={destination}
               onChange={(e) => handleInputChange(e, "destination")}
               onClick={() => {
@@ -344,7 +351,6 @@ const Home = () => {
           ride={ride}
           setVehicleFound={setVehicleFound}
           setWaitingForDriver={setWaitingForDriver}
-          waitingForDriver={waitingForDriver}
         />
       </div>
     </div>

@@ -3,7 +3,7 @@ import React from 'react'
 const WaitingForDriver = (props) => {
   return (
     <>
-        <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>props.waitingForDriver(false)}><i className="ri-arrow-down-wide-line"></i></h5>
+        <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>props.setWaitingForDriver(false)}><i className="ri-arrow-down-wide-line"></i></h5>
 
         <div className='flex items-center justify-between'>
             <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
