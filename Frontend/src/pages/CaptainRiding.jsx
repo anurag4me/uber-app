@@ -27,7 +27,7 @@ const CaptainRiding = () => {
         <div className='fixed p-6 top-0 flex items-center justify-between w-screen'>
           <img
             className="w-16 top-7 left-7"
-            src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+            src="uber-logo-captain.png"
             alt="Uber Logo"
           />
           <Link to="/captain-home" className="bg-white h-10 w-10 flex items-center justify-center rounded-full">

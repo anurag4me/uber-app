@@ -6,7 +6,7 @@ const ConfirmRide = (props) => {
         <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>props.setConfirmRidePanel(false)}><i className="ri-arrow-down-wide-line"></i></h5>
         <h3 className="text-2xl font-semibold mb-5">Confirm Your Ride</h3>
         <div className='flex justify-between flex-col items-center gap-2'>
-            <img className='h-20' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+            <img className='h-20' src="uber-car.jpg" alt="" />
             <div className='w-full mt-5'>
                 <div className='text-lg flex items-center gap-5 p-3 border-b-2'>
                     <i className='ri-map-pin-user-fill'></i>

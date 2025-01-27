@@ -6,7 +6,7 @@ const WaitingForDriver = (props) => {
         <h5 className="absolute top-0 text-center text-3xl text-gray-200 w-[93%] p-1" onClick={()=>props.setWaitingForDriver(false)}><i className="ri-arrow-down-wide-line"></i></h5>
 
         <div className='flex items-center justify-between'>
-            <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+            <img className='h-12' src="uber-car.jpg" alt="" />
             <div className='text-right'>
                 <h2 className='text-lg font-medium capitalize'>{props.ride?.captain.fullname.firstName}</h2>
                 <h4 className='text-xl font-semibold -mt-1 -mb-1 capitalize'>{props.ride?.captain.vehicle.plate}</h4>

@@ -32,8 +32,8 @@ const CaptainLogin = () => {
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
         <img
-          className="w-20 mt-[-16px] ml-[-6px]"
-          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
+          className="w-16 mb-4"
+          src="uber-logo-captain.png"
           alt=""
         />
         <form onSubmit={handleSubmit}>
