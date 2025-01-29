@@ -30,6 +30,8 @@ const Home = () => {
   const confirmRidePanelRef = useRef(null);
   const vehicleFoundRef = useRef(null);
   const waitingForDriverRef = useRef(null);
+  const mapRef = useRef(null);
+  const panelContainerRef = useRef(null);
 
   const [suggestions, setSuggestions] = useState([]);
   const [activeInput, setActiveInput] = useState(null);
@@ -124,7 +126,6 @@ const Home = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(destination, pickup);
     setDestination("");
     setPickup("");
   };
@@ -133,11 +134,17 @@ const Home = () => {
   useGSAP(() => {
     if (panelOpen) {
       gsap.to(panelOpenRef.current, {
-        height: "70%",
+        height: "63%",
         padding: 24,
       });
       gsap.to(panelCloseRef.current, {
         opacity: 1,
+      });
+      gsap.to(panelContainerRef.current, {
+        height: "100%",
+      });
+      gsap.to(mapRef.current, {
+        height: "0%",
       });
     } else {
       gsap.to(panelOpenRef.current, {
@@ -146,6 +153,12 @@ const Home = () => {
       });
       gsap.to(panelCloseRef.current, {
         opacity: 0,
+      });
+      gsap.to(panelContainerRef.current, {
+        height: "33.33%",
+      });
+      gsap.to(mapRef.current, {
+        height: "66.66%",
       });
     }
   }, [panelOpen]);
@@ -236,14 +249,14 @@ const Home = () => {
       />
 
       {/* Main Background Image */}
-      <div className="h-screen w-screen" onClick={() => setVehiclePanel(false)}>
+      <div ref={mapRef} className="h-2/3 w-screen" onClick={() => setVehiclePanel(false)}>
         <LiveTracking />
       </div>
 
       {/* Panels and Form */}
-      <div className="h-screen absolute top-0 w-full flex flex-col justify-end">
+      <div ref={panelContainerRef} className="h-1/3 absolute bottom-6 w-full flex flex-col justify-end">
         {/* Panel Header and Form */}
-        <div className="h-[30%] bg-white p-6 relative">
+        <div className="bg-white p-6 relative">
           <h5
             className="absolute top-6 right-6 text-2xl opacity-0"
             onClick={() => setPanelOpen(false)}
@@ -253,7 +266,7 @@ const Home = () => {
           </h5>
           <h4 className="text-2xl font-semibold">Find a trip</h4>
           <form onSubmit={handleSubmit}>
-            <div className="line absolute h-16 w-1 left-10 bg-gray-700 top-[45%] rounded-full"></div>
+            <div className="line absolute h-16 w-1 left-10 bg-gray-700 top-[36%] rounded-full"></div>
             <input
               className="bg-[#eeeeee] px-12 py-2 text-lg rounded-lg w-full mt-3"
               type="text"

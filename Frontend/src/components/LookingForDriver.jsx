@@ -1,6 +1,14 @@
 import React from "react";
 
 const LookingForDriver = (props) => {
+  let vehicleImg = ""
+    if (props.vehicleType === "auto") {
+        vehicleImg = "uber-auto.png";
+    } else if (props.vehicleType === "moto") {
+        vehicleImg = "uber-bike.webp";
+    } else {
+        vehicleImg = "uber-car.jpg";
+    }
   return (
     <>
       <h5
@@ -11,7 +19,7 @@ const LookingForDriver = (props) => {
       </h5>
       <h3 className="text-2xl font-semibold mb-5">Looking For A Driver</h3>
       <div className="flex justify-between flex-col items-center gap-2">
-        <img className="h-20" src="uber-car.jpg" alt="" />
+        <img className="h-20" src={vehicleImg} alt="" />
         <div className="w-full mt-5">
           <div className="text-lg flex items-center gap-5 p-3 border-b-2">
             <i className="ri-map-pin-user-fill"></i>
