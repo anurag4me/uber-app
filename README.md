@@ -2,6 +2,8 @@
 
 A real-time ride-hailing application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) featuring live location tracking, ride matching, and real-time communication.
 
+[![Watch the video](https://img.youtube.com/vi/z5ekJ0uDcgo/maxresdefault.jpg)](https://www.youtube.com/watch?v=z5ekJ0uDcgo)
+
 ## Features
 
 - 🗺️ Real-time location tracking using Google Maps API
